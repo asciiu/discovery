@@ -8,48 +8,16 @@ use aux5::{entry, prelude::*, Delay, Leds};
 fn main() -> ! {
     let (mut delay, mut leds): (Delay, Leds) = aux5::init();
 
-    let half_period = 50_u16;
+    let ms = 50_u16;
 
     loop {
-        leds[0].on();
-        leds[1].on();
-        delay.delay_ms(half_period);
-        leds[0].off();
+        for curr in 0..8 {
+            let next = (curr + 1) % 8;
 
-        delay.delay_ms(half_period);
-        leds[2].on();
-        delay.delay_ms(half_period);
-        leds[1].off();
-
-        delay.delay_ms(half_period);
-        leds[3].on();
-        delay.delay_ms(half_period);
-        leds[2].off();
-
-        delay.delay_ms(half_period);
-        leds[4].on();
-        delay.delay_ms(half_period);
-        leds[3].off();
-
-        delay.delay_ms(half_period);
-        leds[5].on();
-        delay.delay_ms(half_period);
-        leds[4].off();
-
-        delay.delay_ms(half_period);
-        leds[6].on();
-        delay.delay_ms(half_period);
-        leds[5].off();
-
-        delay.delay_ms(half_period);
-        leds[7].on();
-        delay.delay_ms(half_period);
-        leds[6].off();
-
-        delay.delay_ms(half_period);
-        leds[0].on();
-        delay.delay_ms(half_period);
-        leds[7].off();
-        delay.delay_ms(half_period);
+            leds[next].on();
+            delay.delay_ms(ms);
+            leds[curr].off();
+            delay.delay_ms(ms);
+        }
     }
 }
